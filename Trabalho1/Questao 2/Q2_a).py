@@ -10,24 +10,22 @@ def erro_relativo(x, x0):
 def newton_raphson(x0, E1, E2):
     x = x0
     iteration = 0
-    print(f"Iteracao {iteration}: x = {x}")
+    print(f"Iteracao inicial {iteration}: x = {x}")
 
     while True:
         fx = f(x)
         dfx = df(x)
-        erro_rel = erro_relativo(x, x0)
         
         x0 = x
-        x = x - fx / dfx
+        x = x0 - fx / dfx
         iteration += 1
+        erro_rel = erro_relativo(x, x0)
         
-        print(f"Apos {iteration} Iteracoes, x = {x}, f(x) ="+
-              "{fx}, Erro Relativo = {erro_rel}")
+        print(f"Apos {iteration} Iteracoes, x = {x}, f(x) = {fx}, Erro Relativo = {erro_rel}")
         
         if abs(fx) <= E1:
             if erro_rel <= E2:
-                print("Condicao de parada 1 e 2 atingidas ao" +
-                      "mesmo tempo.")
+                print("Condicao de parada 1 e 2 atingidas ao mesmo tempo.")
                 break
             else:
                 print("Condicao de parada 1 atingida.")
