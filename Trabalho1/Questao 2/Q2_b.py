@@ -11,34 +11,33 @@ def secante(x0, x1, E1, E2):
 
     while True:
         fx0 = f(x0)
-        fx1 = f(x1)
-        
-        erro_rel = erro_relativo(x1, x0)
+        fx1 = f(x1)        
         
         x2 = x1 - (fx1 * (x1 - x0)) / (fx1 - fx0)
+        fx2 = f(x2)
         
-        print(f"Apos {iteration} Iteracoes, x{iteration}"+
-              f"= {x0}, x{iteration+1} = {x1},"+
-              f" f(x{iteration}) = {fx0}, f(x{iteration+1}) ="+
-              f"{fx1}, Erro Relativo = {erro_rel}")
+        erro_rel = erro_relativo(x2, x1)
         
-        if abs(fx1) <= E1:
+        iteration += 1
+        print(f"Apos {iteration} Iteracoes, x{iteration} = {x1}, x{iteration+1} = {x2},"+
+              f" f(x{iteration}) = {fx1}, f(x{iteration+1}) = {fx2}, Erro Relativo = {erro_rel}")
+        
+        if abs(fx2) <= E1:
             if erro_rel <= E2:
-                print("Condicao de parada 1 e 2 atingidas"+
+                print("\nCondicao de parada 1 -> |fxi| <= E1 e 2 -> Erro Relativo <= E2 atingidas"+
                       f"ao mesmo tempo.")
                 break
             else:
-                print("Condicao de parada 1 atingida.")
+                print("\nCondicao de parada 1 atingida -> |fxi| <= E1")
                 break
         elif erro_rel <= E2:
-            print("Condicao de parada 2 atingida.")
+            print("\nCondicao de parada 2 atingida -> Erro Relativo <= E2")
             break
         
         x0 = x1
         x1 = x2
-        iteration += 1
     
-    return x1
+    return x2
 
 # Valores iniciais
 x0 = 0

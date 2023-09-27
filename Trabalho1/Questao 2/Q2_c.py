@@ -1,11 +1,8 @@
 def f(x):
     return x**3 - 9*x + 3
 
-def erro_relativo(x, x0):
-    if x0 != 0:
-        return abs(x - x0) / abs(x0)
-    else:
-        return abs(x)
+def erro_abs(x, x0):
+    return abs(x - x0)
 
 def bissecao(a, b, E1, E2):
     iteration = 0
@@ -15,15 +12,18 @@ def bissecao(a, b, E1, E2):
         fa = f(a)
         fb = f(b)
         fc = f(c)
-
-        print(f"Iteracao {iteration}: x{iteration} = {a}, x{iteration+1} = {b}, x{iteration+2} = {c}")
         
-        if abs(fc) <= E1 or (b - a) / 2 <= E2:
-            print("Condicao de parada atingida.")
+        err_abs = erro_abs(a, b)
+
+        print(f"Iteracao {iteration}: a{iteration} = {a}, b{iteration} = {b}, c{iteration} = {c}")
+        print(f"f(a{iteration}) = {fa}, f(b{iteration}) = {fb}, f(c{iteration}) = {fc}, Erro Relativo = {err_abs}")
+
+        
+        if abs(fc) <= E1 and err_abs<= E2:
+            print("\nCondicao de parada atingida.")
+
             break
         
-        erro_rel = erro_relativo(c, (a + b) / 2)
-        print(f"f(x{iteration}) = {fa}, f(x{iteration+1}) = {fb}, f(x{iteration+2}) = {fc}, Erro Relativo = {erro_rel}")
 
         if fa * fc < 0:
             b = c  # A raiz está no subintervalo [a, c]
